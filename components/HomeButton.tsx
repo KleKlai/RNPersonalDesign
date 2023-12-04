@@ -1,32 +1,45 @@
-import { Pressable, StyleSheet } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router'
-import {Dimensions} from 'react-native';
+import { Pressable, StyleSheet, useColorScheme } from "react-native";
+import React from "react";
+import { Link } from "expo-router";
+import { Dimensions } from "react-native";
 import { Text, View, useThemeColor } from "./Themed";
-import { normalize } from '../lib/fontNormilize';
+import { normalize } from "../lib/fontNormilize";
+import Colors from "../constants/Colors";
 
-const HomeButton = () => {  
+const HomeButton = () => {
+  const theme = useColorScheme() ?? "light";
+
   return (
-    <View style={{ padding: 20}}>
-      <Link href="/" style={styles.button} asChild>
+    <View style={{ padding: 20 }}>
+      <Link
+        href="/"
+        style={[
+          styles.button,
+          { backgroundColor: theme === "light" ? Colors.light.text : Colors.dark.text },
+        ]}
+        asChild
+      >
         <Pressable>
-            <Text style={{ color: '#000', fontSize: normalize(17), fontWeight: '600'}}>Go Home</Text>
+          <Text
+            style={{ fontSize: normalize(17), fontWeight: "600" }}
+            lightColor={Colors.dark.text}
+            darkColor={Colors.light.text}
+          >
+            Go Home
+          </Text>
         </Pressable>
-        </Link>
+      </Link>
     </View>
-  )
-}
+  );
+};
 
-export default HomeButton
+export default HomeButton;
 
 const styles = StyleSheet.create({
-    button: {
-        padding: 15,
-        borderColor: '#fff',
-        borderWidth: 2,
-        borderRadius: 30,
-        width: Dimensions.get('window').width * .7, // 70% width of the screen
-        alignItems: 'center',
-        backgroundColor: '#fff',
-    }
-})
+  button: {
+    padding: 15,
+    borderRadius: 30,
+    width: Dimensions.get("window").width * 0.7, // 70% width of the screen
+    alignItems: "center",
+  },
+});

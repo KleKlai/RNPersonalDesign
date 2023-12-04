@@ -1,7 +1,7 @@
 import { StyleSheet, TouchableOpacity } from "react-native";
 
 import { Text, View } from "../../components/Themed";
-import Ionicons from '@expo/vector-icons/Ionicons';
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 
 export default function TabOneScreen() {
@@ -13,7 +13,7 @@ export default function TabOneScreen() {
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
-      <Text>Carousell Image Slider</Text>
+      <Text style={{ fontFamily: 'SFProDisplayBold'}}>Carousell Image Slider</Text>
       <Text>Form</Text>
       <Text>Recent Transaction</Text>
       <TouchableOpacity
@@ -31,7 +31,14 @@ export default function TabOneScreen() {
           borderRadius: 100,
         }}
         onPress={() => {
-          router.push("/modal");
+          router.push({
+            pathname: "/modal",
+            params: {
+              title: "Payment successful!",
+              amount: "400.00",
+              description: "has been sent to Maynard from your wallet",
+            },
+          });
         }}
       >
         <Ionicons name="add" size={38} color="#000" />

@@ -15,6 +15,8 @@ import Transactions from "../../constants/Transactions";
 import { parseDate } from "../../lib/Date";
 import Banner from "../../constants/Banner";
 import Colors from "../../constants/Colors";
+import Svg from "react-native-svg";
+import StyledSvg from "../../components/StyledSvg";
 
 const { height } = Dimensions.get("window");
 
@@ -69,16 +71,20 @@ const TabOneScreen = () => {
           ]}
         >
           <ScrollView showsVerticalScrollIndicator={false}>
-            {Transactions.map((data, index) => {
-              return (
-                <TransactionItem
-                  key={index}
-                  service={data.service}
-                  amount={"$" + data.amount}
-                  date={parseDate(data.date)}
-                />
-              );
-            })}
+            {Transactions.length > 0 ? (
+              Transactions.map((data, index) => {
+                return (
+                  <TransactionItem
+                    key={index}
+                    service={data.service}
+                    amount={"$" + data.amount}
+                    date={parseDate(data.date)}
+                  />
+                );
+              })
+            ) : (
+              <EmptyData />
+            )}
           </ScrollView>
         </View>
       </View>
@@ -207,6 +213,18 @@ const TransactionItem = ({ service, amount, date }: any) => {
     </View>
   );
 };
+
+const EmptyData = () => (
+  <View style={{
+    alignContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff'
+  }}>
+    <Text style={{
+      color: '#333'
+    }}>No Transactions Found</Text>
+  </View>
+)
 
 const styles = StyleSheet.create({
   container: {

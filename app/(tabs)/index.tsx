@@ -6,7 +6,7 @@ import {
   Image,
   useColorScheme,
 } from "react-native";
-import React from "react";
+import React, { useRef } from "react";
 import { Text, View } from "../../components/Themed";
 import { normalize } from "../../lib/fontNormilize";
 import { Ionicons } from "@expo/vector-icons";
@@ -15,13 +15,13 @@ import Transactions from "../../constants/Transactions";
 import { parseDate } from "../../lib/Date";
 import Banner from "../../constants/Banner";
 import Colors from "../../constants/Colors";
-import Svg from "react-native-svg";
-import StyledSvg from "../../components/StyledSvg";
+import BottomSheet, { BottomSheetMethods } from "@devvie/bottom-sheet";
 
 const { height } = Dimensions.get("window");
 
 const TabOneScreen = () => {
   const theme = useColorScheme() ?? "light";
+  const sheetRef = useRef<BottomSheetMethods>(null);
 
   return (
     <View style={styles.container}>
@@ -103,19 +103,34 @@ const TabOneScreen = () => {
           backgroundColor: "#fff",
           borderRadius: 100,
         }}
-        onPress={() => {
-          router.push({
-            pathname: "/modal",
-            params: {
-              title: "Payment successful!",
-              amount: "400.00",
-              description: "has been sent to Maynard from your wallet",
-            },
-          });
-        }}
+        // onPress={() => {
+        //   router.push({
+        //     pathname: "/modal",
+        //     params: {
+        //       title: "Payment successful!",
+        //       amount: "400.00",
+        //       description: "has been sent to Maynard from your wallet",
+        //     },
+        //   });
+        // }}
+        onPress={() => sheetRef.current?.open()}
       >
         <Ionicons name="add" size={38} color="#000" />
       </TouchableOpacity>
+
+      <BottomSheet
+        ref={sheetRef}
+        style={{
+          backgroundColor:
+            theme === "light"
+              ? Colors.dark.background
+              : Colors.light.background,
+        }}
+      >
+        <Text style={{ color: '#333'}}>
+          Form Here
+        </Text>
+      </BottomSheet>
     </View>
   );
 };
@@ -152,13 +167,15 @@ const TransactionItem = ({ service, amount, date }: any) => {
         },
       ]}
     >
-      <View style={{
+      <View
+        style={{
           backgroundColor:
             theme === "light"
               ? Colors.dark.background
               : Colors.light.background,
-          alignItems: 'flex-start',
-        }}>
+          alignItems: "flex-start",
+        }}
+      >
         <Text
           style={[
             stylesTransactions.transactionText,
@@ -215,16 +232,22 @@ const TransactionItem = ({ service, amount, date }: any) => {
 };
 
 const EmptyData = () => (
-  <View style={{
-    alignContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff'
-  }}>
-    <Text style={{
-      color: '#333'
-    }}>No Transactions Found</Text>
+  <View
+    style={{
+      alignContent: "center",
+      alignItems: "center",
+      backgroundColor: "#fff",
+    }}
+  >
+    <Text
+      style={{
+        color: "#333",
+      }}
+    >
+      No Transactions Found
+    </Text>
   </View>
-)
+);
 
 const styles = StyleSheet.create({
   container: {

@@ -9,7 +9,7 @@ export interface AuthState {
 
 const useAuthStore = create<AuthState>((set) => ({
   user: null, // Store the logged-in user
-  isAuthenticated: true, // Flag to indicate if user is authenticated
+  isAuthenticated: false, // Flag to indicate if user is authenticated
   login: () => {
     // Implement login logic
     // Update user and isAuthenticated state

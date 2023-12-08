@@ -1,6 +1,7 @@
 import {
   Dimensions,
   Image,
+  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -50,6 +51,7 @@ const index = () => {
 
       <BottomSheet
         modal={false}
+        animationType="spring"
         height="60%"
         ref={signUpRef}
         style={{
@@ -170,6 +172,7 @@ const stylesSignUp = StyleSheet.create({
     paddingRight: 30,
   },
   header: {
+    paddingTop: 25,
     fontSize: normalize(24),
     fontFamily: "SFProDisplayBold",
     width: dimensions.width * 0.4,

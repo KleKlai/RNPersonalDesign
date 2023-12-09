@@ -66,7 +66,8 @@ const index = () => {
 
       <BottomSheet
         modal={false}
-        height="70%"
+        animationType="slide"
+        height="55%"
         ref={signIpRef}
         style={{
           backgroundColor:
@@ -75,7 +76,7 @@ const index = () => {
               : Colors.light.background,
         }}
       >
-        <Text style={{ color: "#333" }}>Form Here</Text>
+        <SignIn />
       </BottomSheet>
     </View>
   );
@@ -90,7 +91,7 @@ const SignUp = () => (
     <View style={stylesSignUp.inputContainer}>
       <TextInput
         style={stylesSignUp.label}
-        keyboardType="email"
+        keyboardType="email-address"
       />
     </View>
     <Text style={stylesSignUp.label}>Username</Text>
@@ -112,6 +113,30 @@ const SignUp = () => (
     </View>
   </View>
 );
+
+const SignIn = () => (
+  <View style={stylesSignIn.container}>
+    <Text style={stylesSignIn.header}>New Account</Text>
+    <Text style={stylesSignIn.label}>Email</Text>
+    <View style={stylesSignIn.inputContainer}>
+      <TextInput
+        style={stylesSignIn.label}
+        keyboardType="email-address"
+      />
+    </View>
+    <Text style={stylesSignUp.label}>Password</Text>
+    <View style={stylesSignUp.inputContainer}>
+      <TextInput
+        style={stylesSignUp.label}
+      />
+    </View>
+    <View style={stylesSignIn.buttonContainer}>
+    <TouchableOpacity style={[stylesSignIn.button, { backgroundColor: "#333" }]}>
+      <Text style={[stylesSignIn.buttonText, { color: '#fff' }]}>Sign Up</Text>
+    </TouchableOpacity>
+    </View>
+  </View>
+)
 
 const styles = StyleSheet.create({
   container: {
@@ -214,4 +239,52 @@ const stylesSignUp = StyleSheet.create({
   },
 });
 
-const stylesSignIn = StyleSheet.create({});
+const stylesSignIn = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: dimensions.height * 0.6,
+    paddingLeft: 30,
+    paddingRight: 30,
+  },
+  header: {
+    paddingTop: 25,
+    fontSize: normalize(24),
+    fontFamily: "SFProDisplayBold",
+    width: dimensions.width * 0.4,
+    paddingBottom: 40,
+  },
+  label: {
+    fontSize: normalize(17),
+    color: "#757575",
+    fontFamily: "SFProDisplayMedium",
+  },
+  inputContainer: {
+    borderBottomColor: '#757575',
+    borderBottomWidth: 1,
+    marginBottom: 15,
+  },
+  input: {
+    fontSize: normalize(12),
+    color: "#BDBDBD",
+    fontFamily: "SFProDisplayRegular",
+    padding: 10,
+  },
+  buttonContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    bottom: 20,
+    borderTopStartRadius: 30,
+    borderTopEndRadius: 30,
+  },
+  button: {
+    alignItems: "center",
+    backgroundColor: "#fff",
+    padding: 15,
+    borderRadius: 40,
+  },
+  buttonText: {
+    fontFamily: "SFProDisplayRegular",
+    fontSize: normalize(17),
+    letterSpacing: 1,
+  },
+});
